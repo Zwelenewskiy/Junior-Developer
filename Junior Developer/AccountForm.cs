@@ -92,10 +92,5 @@ namespace Junior_Developer
             TB_Date.Text = Calendar.SelectionStart.ToString("yyyy-MM-dd");
             Calendar.Hide();
         }
-
-        private void TB_Sum_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
     }
 }

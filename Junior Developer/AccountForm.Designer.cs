@@ -94,7 +94,6 @@
             this.TB_Sum.Name = "TB_Sum";
             this.TB_Sum.Size = new System.Drawing.Size(87, 20);
             this.TB_Sum.TabIndex = 9;
-            this.TB_Sum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Sum_KeyPress);
             // 
             // BT1
             // 

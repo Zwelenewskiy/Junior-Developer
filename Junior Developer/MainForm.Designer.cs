@@ -30,8 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.DGV_invoice = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TSMI_addAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_changeAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.TSMI_deleteAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.TB_search = new System.Windows.Forms.Button();
@@ -43,13 +47,9 @@
             this.TB_LastName = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.TSL_allSum = new System.Windows.Forms.ToolStripLabel();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.P_Loading = new System.Windows.Forms.Panel();
             this.L_LoadText = new System.Windows.Forms.Label();
+            this.BT_add = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_invoice)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -74,24 +74,51 @@
             this.DGV_invoice.Size = new System.Drawing.Size(751, 396);
             this.DGV_invoice.TabIndex = 0;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Дата";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Фамилия";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Имя";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 150;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Отчество";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Сумма счета, тыс";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 120;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TSMI_addAccount,
             this.TSMI_changeAccount,
             this.TSMI_deleteAccount});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
             this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
-            // 
-            // TSMI_addAccount
-            // 
-            this.TSMI_addAccount.Name = "TSMI_addAccount";
-            this.TSMI_addAccount.Size = new System.Drawing.Size(155, 22);
-            this.TSMI_addAccount.Tag = "add";
-            this.TSMI_addAccount.Text = "Добавить счет";
-            this.TSMI_addAccount.Click += new System.EventHandler(this.AccountAction);
             // 
             // TSMI_changeAccount
             // 
@@ -185,42 +212,6 @@
             this.TSL_allSum.Size = new System.Drawing.Size(86, 22);
             this.TSL_allSum.Text = "toolStripLabel1";
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Дата";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column1.Width = 150;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Фамилия";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Имя";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 150;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Отчество";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 150;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Сумма счета, тыс";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 120;
-            // 
             // P_Loading
             // 
             this.P_Loading.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -240,12 +231,24 @@
             this.L_LoadText.TabIndex = 0;
             this.L_LoadText.Text = "Идет загрузка данных";
             // 
-            // Form1
+            // BT_add
+            // 
+            this.BT_add.Location = new System.Drawing.Point(688, 21);
+            this.BT_add.Name = "BT_add";
+            this.BT_add.Size = new System.Drawing.Size(75, 23);
+            this.BT_add.TabIndex = 14;
+            this.BT_add.Tag = "add";
+            this.BT_add.Text = "Добавить";
+            this.BT_add.UseVisualStyleBackColor = true;
+            this.BT_add.Click += new System.EventHandler(this.BT_add_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(775, 474);
+            this.Controls.Add(this.BT_add);
             this.Controls.Add(this.P_Loading);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label3);
@@ -257,7 +260,7 @@
             this.Controls.Add(this.TB_search);
             this.Controls.Add(this.DGV_invoice);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Invoice";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -276,7 +279,6 @@
 
         private System.Windows.Forms.DataGridView DGV_invoice;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem TSMI_addAccount;
         private System.Windows.Forms.ToolStripMenuItem TSMI_changeAccount;
         private System.Windows.Forms.ToolStripMenuItem TSMI_deleteAccount;
         private System.Windows.Forms.Button TB_search;
@@ -295,6 +297,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Panel P_Loading;
         private System.Windows.Forms.Label L_LoadText;
+        private System.Windows.Forms.Button BT_add;
     }
 }
 

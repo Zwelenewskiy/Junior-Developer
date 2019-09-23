@@ -56,7 +56,6 @@ namespace Junior_Developer
             {
                 P_Loading.Show();
                 TB_search.Enabled = false;
-                TSMI_addAccount.Enabled = false;
                 TSL_allSum.Text = "Сумма всех счетов: ";
                 DataGridView new_dgv = new DataGridView();
 
@@ -80,7 +79,6 @@ namespace Junior_Developer
                 TSL_allSum.Text = "Сумма всех счетов: " + sum.ToString() + " тыс.";
                 P_Loading.Hide();
                 TB_search.Enabled = true;
-                TSMI_addAccount.Enabled = true;
             }, TaskCreationOptions.LongRunning);             
         }
 
@@ -90,24 +88,27 @@ namespace Junior_Developer
             LoadGrid();
         }
 
+        private void BT_add_Click(object sender, EventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();//получили тип действия пользователя
+
+            using (var accForm = new AccountForm(Functions.Action.change))
+            {
+                accForm.ShowDialog();
+            }
+
+            LoadGrid();
+        }
+
         private void AccountAction(object sender, EventArgs e)
         {   
             if (DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Cells[0].Value != null)
             {
                 string tag = ((ToolStripMenuItem)sender).Tag.ToString();//получили тип действия пользователя
-                var act = tag == "add" ? Functions.Action.add : tag == "change" ? Functions.Action.change : Functions.Action.delete;
+                var act = tag ==  "change" ? Functions.Action.change : Functions.Action.delete;
 
                 switch (act)
                 {
-                    case Functions.Action.add:
-                        using (var accForm = new AccountForm(Functions.Action.change))
-                        {
-                            accForm.ShowDialog();
-                        }
-
-                        LoadGrid();
-                        break;
-
                     case Functions.Action.change:
                         using (var accForm = new AccountForm(act, Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag),
                         DGV_invoice.Rows[DGV_invoice.CurrentRow.Index]))
