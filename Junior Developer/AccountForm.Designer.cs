@@ -30,7 +30,6 @@
         {
             this.TB_LastName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.label4 = new System.Windows.Forms.Label();
             this.TB_Date = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TB_Patronymic = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.Calendar = new System.Windows.Forms.MonthCalendar();
             this.SuspendLayout();
             // 
             // TB_LastName
@@ -58,13 +58,6 @@
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Фамилия:";
-            // 
-            // Calendar
-            // 
-            this.Calendar.Location = new System.Drawing.Point(200, 65);
-            this.Calendar.Name = "Calendar";
-            this.Calendar.TabIndex = 6;
-            this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
             // 
             // label4
             // 
@@ -154,6 +147,13 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Отчество:";
             // 
+            // Calendar
+            // 
+            this.Calendar.Location = new System.Drawing.Point(200, 65);
+            this.Calendar.Name = "Calendar";
+            this.Calendar.TabIndex = 6;
+            this.Calendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.Calendar_DateSelected);
+            // 
             // AccountForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,7 +187,6 @@
 
         private System.Windows.Forms.TextBox TB_LastName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MonthCalendar Calendar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TB_Date;
         private System.Windows.Forms.Label label5;
@@ -198,5 +197,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TB_Patronymic;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MonthCalendar Calendar;
     }
 }

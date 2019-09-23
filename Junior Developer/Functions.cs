@@ -18,7 +18,7 @@ namespace Junior_Developer
             show
         }
 
-        private static readonly string CONNETION_FILE = "connection.txt";
+        private static readonly string CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Invoice;Integrated Security=True";
 
         /// <summary>
         /// Заполняет базу данных тестовыми данными
@@ -30,28 +30,7 @@ namespace Junior_Developer
                 AccountAction(Action.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
             }
         }
-
-        /// <summary>
-        /// Чтение настроек из файла для подключения к БД
-        /// </summary>
-        private static string ReadConnectionString()
-        {
-            string connection_string = null;
-            try
-            {
-                using (StreamReader sr = new StreamReader(CONNETION_FILE)
-)
-                {
-                    connection_string += @"Data Source=.\" + sr.ReadLine() + ";";
-                    connection_string += "Initial Catalog=" + sr.ReadLine() + ";Integrated Security=True";
-                }
-            }
-            catch
-            {}            
-
-            return connection_string;
-        }
-
+        
         /// <summary>
         /// Обрабатывает действие пользователя
         /// </summary>
@@ -65,7 +44,7 @@ namespace Junior_Developer
         /// <returns></returns>
         public static object AccountAction(Action act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
         {
-            string connection_string = ReadConnectionString();
+            string connection_string = CONNECTION_STRING;
             if(connection_string == null)
             {
                 return null;
