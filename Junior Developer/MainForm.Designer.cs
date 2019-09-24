@@ -116,7 +116,7 @@
             this.TSMI_changeAccount,
             this.TSMI_deleteAccount});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 48);
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
             this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
             // 
@@ -233,12 +233,12 @@
             // 
             // BT_add
             // 
-            this.BT_add.Location = new System.Drawing.Point(688, 21);
+            this.BT_add.Location = new System.Drawing.Point(657, 21);
             this.BT_add.Name = "BT_add";
-            this.BT_add.Size = new System.Drawing.Size(75, 23);
+            this.BT_add.Size = new System.Drawing.Size(106, 23);
             this.BT_add.TabIndex = 14;
             this.BT_add.Tag = "add";
-            this.BT_add.Text = "Добавить";
+            this.BT_add.Text = "Добавить запись";
             this.BT_add.UseVisualStyleBackColor = true;
             this.BT_add.Click += new System.EventHandler(this.BT_add_Click);
             // 

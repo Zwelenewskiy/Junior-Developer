@@ -56,6 +56,7 @@ namespace Junior_Developer
             {
                 P_Loading.Show();
                 TB_search.Enabled = false;
+                BT_add.Enabled = false;
                 TSL_allSum.Text = "Сумма всех счетов: ";
                 DataGridView new_dgv = new DataGridView();
 
@@ -79,6 +80,7 @@ namespace Junior_Developer
                 TSL_allSum.Text = "Сумма всех счетов: " + sum.ToString() + " тыс.";
                 P_Loading.Hide();
                 TB_search.Enabled = true;
+                BT_add.Enabled = true;
             }, TaskCreationOptions.LongRunning);             
         }
 
