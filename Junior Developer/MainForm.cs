@@ -92,7 +92,10 @@ namespace Junior_Developer
 
         private void BT_add_Click(object sender, EventArgs e)
         {
-            using (var accForm = new AccountForm(Structs.Action.change))
+            using (var accForm = new AccountForm(new AccountFormParams()
+            {
+                action = Structs.Action.add
+            }))
             {
                 accForm.ShowDialog();
             }
@@ -110,8 +113,13 @@ namespace Junior_Developer
                 switch (act)
                 {
                     case Structs.Action.change:
-                        using (var accForm = new AccountForm(act, Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag),
-                        DGV_invoice.Rows[DGV_invoice.CurrentRow.Index]))
+                        using (var accForm = new AccountForm(new AccountFormParams()
+                        {
+                            action = act,
+                            id = Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag),
+                            user_info = DGV_invoice.Rows[DGV_invoice.CurrentRow.Index]
+
+                        }))
                         {
                             accForm.ShowDialog();
                         }
@@ -133,7 +141,11 @@ namespace Junior_Developer
                         break;
 
                     default:
-                        using (var accForm = new AccountForm(Structs.Action.change))
+                        using (var accForm = new AccountForm(new AccountFormParams()
+                        {
+                            action =  Structs.Action.change,
+
+                        }))
                         {
                             accForm.ShowDialog();
                         }

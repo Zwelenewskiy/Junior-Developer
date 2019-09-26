@@ -6,25 +6,24 @@ namespace Junior_Developer
 {
     public partial class AccountForm : Form
     {
-        private int _id;
-        private Structs.Action _action;
+        private int id;
+        private Structs.Action action;
 
-        //public AccountForm(Structs.Action action = Structs.Action.add, int id = -1, DataGridViewRow user_info = null)
-        public AccountForm(AccountFormParams params)
+        public AccountForm(AccountFormParams parameters)
         {
             InitializeComponent();
 
             Calendar.Hide();
-            if(id != -1)
+            if(parameters.id != -1)
             {
-                _id = id;
-                _action = action;
+                id = parameters.id; 
+                action = parameters.action;
 
-                TB_Date.Text = user_info.Cells[0].Value.ToString();
-                TB_LastName.Text = user_info.Cells[1].Value.ToString();
-                TB_FirstName.Text = user_info.Cells[2].Value.ToString();
-                TB_Patronymic.Text = user_info.Cells[3].Value.ToString();
-                TB_Sum.Text = user_info.Cells[4].Value.ToString();
+                TB_Date.Text = parameters.user_info.Cells[0].Value.ToString();
+                TB_LastName.Text = parameters.user_info.Cells[1].Value.ToString();
+                TB_FirstName.Text = parameters.user_info.Cells[2].Value.ToString();
+                TB_Patronymic.Text = parameters.user_info.Cells[3].Value.ToString();
+                TB_Sum.Text = parameters.user_info.Cells[4].Value.ToString();
             }
 
             if(action == Structs.Action.change)
@@ -58,24 +57,24 @@ namespace Junior_Developer
                 return;
             }
 
-            switch (_action)
+            switch (action)
             {
                 case Structs.Action.add:
-                    if ((bool)Functions.AccountAction(_action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text)))
+                    if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text)))
                         MessageBox.Show("Информация успешно добавлена", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при добавлении информации", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
                 case Structs.Action.change:
-                    if ((bool)Functions.AccountAction(_action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text), _id))
+                    if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text), id))
                         MessageBox.Show("Информация успешно изменена", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при изменении информации", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
                 case Structs.Action.delete:
-                    if((bool)Functions.AccountAction(_action, id: _id))
+                    if((bool)Functions.AccountAction(action, id: id))
                         MessageBox.Show("Информация успешно удалена", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при удалении информации", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);

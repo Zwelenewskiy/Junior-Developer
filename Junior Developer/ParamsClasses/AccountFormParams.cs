@@ -13,6 +13,9 @@ namespace Junior_Developer
         public int id { get; set; }
         public DataGridViewRow user_info { get; set; }
 
-        public AccountFormParams() { }
+        public AccountFormParams()
+        {
+            id = -1;
+        }
     }
 }
