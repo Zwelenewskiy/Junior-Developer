@@ -1,4 +1,5 @@
 ﻿using System;
+using Structs;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace Junior_Developer
         /// </summary>
         private void LoadGrid()
         {
-            var tmp = Functions.AccountAction(Structs.Action.show);//проверили подключение к БД
+            var tmp = Functions.AccountAction(UserAction.show);//проверили подключение к БД
             if (tmp == null)
             {
                 MessageBox.Show("Ошибка при подключении к базе данных", "Загрузка данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -94,7 +95,7 @@ namespace Junior_Developer
         {
             using (var accForm = new AccountForm(new AccountFormParams()
             {
-                action = Structs.Action.add
+                action = UserAction.add
             }))
             {
                 accForm.ShowDialog();
@@ -108,11 +109,11 @@ namespace Junior_Developer
             if (DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Cells[0].Value != null)
             {
                 string tag = ((ToolStripMenuItem)sender).Tag.ToString();//получили тип действия пользователя
-                var act = tag ==  "change" ? Structs.Action.change : Structs.Action.delete;
+                var act = tag ==  "change" ? UserAction.change : UserAction.delete;
 
                 switch (act)
                 {
-                    case Structs.Action.change:
+                    case UserAction.change:
                         using (var accForm = new AccountForm(new AccountFormParams()
                         {
                             action = act,
@@ -127,7 +128,7 @@ namespace Junior_Developer
                         LoadGrid();
                         break;
 
-                    case Structs.Action.delete:
+                    case UserAction.delete:
                         if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
                             if ((bool)Functions.AccountAction(act, id: Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag)))
@@ -143,7 +144,7 @@ namespace Junior_Developer
                     default:
                         using (var accForm = new AccountForm(new AccountFormParams()
                         {
-                            action =  Structs.Action.change,
+                            action =  UserAction.change,
 
                         }))
                         {

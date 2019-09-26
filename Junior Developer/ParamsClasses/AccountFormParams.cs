@@ -9,7 +9,7 @@ namespace Junior_Developer
 {
     public class AccountFormParams
     {
-        public Structs.Action action { get; set; }
+        public Structs.UserAction action { get; set; }
         public int id { get; set; }
         public DataGridViewRow user_info { get; set; }
 

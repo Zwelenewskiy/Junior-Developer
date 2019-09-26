@@ -16,7 +16,7 @@ namespace Junior_Developer
         {
             for (int i = 0; i < 20001; i++)
             {
-                AccountAction(Structs.Action.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
+                AccountAction(Structs.UserAction.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
             }
         }
         
@@ -31,7 +31,7 @@ namespace Junior_Developer
         /// <param name="sum">Сумма счета</param>
         /// <param name="id">ID записи в БД</param>
         /// <returns></returns>
-        public static object AccountAction(Structs.Action act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
+        public static object AccountAction(Structs.UserAction act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
         {
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -43,7 +43,7 @@ namespace Junior_Developer
 
                 switch (act)
                 {
-                    case Structs.Action.add:
+                    case Structs.UserAction.add:
                         command.CommandText = $"SELECT MAX(ID) FROM Main_table";
                         var new_id = command.ExecuteScalar();
 
@@ -54,20 +54,20 @@ namespace Junior_Developer
 
                         return true;
 
-                    case Structs.Action.change:
+                    case Structs.UserAction.change:
                         command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{date}', LastName = '{lastName}', FirstName = '{firstName}'," +
                             $"Patronymic = '{patronymic}', Sum = {sum.ToString().Replace(',', '.')} WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case Structs.Action.delete:
+                    case Structs.UserAction.delete:
                         command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case Structs.Action.show:
+                    case Structs.UserAction.show:
 
                         var query_res = new List<object[]>();
 

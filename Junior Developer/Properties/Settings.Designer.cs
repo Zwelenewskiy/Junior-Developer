@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Junior_Developer.Properties
+namespace Structs.Properties
 {
 
 

@@ -4,20 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Junior_Developer
-{
-    public class Structs
+namespace Structs
+{ 
+    /// <summary>
+    /// Тип действия пользователя
+    /// </summary>
+    public enum UserAction
     {
-        /// <summary>
-        /// Тип действия пользователя
-        /// </summary>
-        public enum Action
-        {
-            add,
-            change,
-            delete,
-            show
-        }
-
+        add,
+        change,
+        delete,
+        show
     }
-}
+}  

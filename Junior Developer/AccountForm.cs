@@ -7,7 +7,7 @@ namespace Junior_Developer
     public partial class AccountForm : Form
     {
         private int id;
-        private Structs.Action action;
+        private Structs.UserAction action;
 
         public AccountForm(AccountFormParams parameters)
         {
@@ -26,7 +26,7 @@ namespace Junior_Developer
                 TB_Sum.Text = parameters.user_info.Cells[4].Value.ToString();
             }
 
-            if(action == Structs.Action.change)
+            if(action == Structs.UserAction.change)
                 BT1.Text = "Изменить";
             else
                 BT1.Text = "Удалить";
@@ -59,21 +59,21 @@ namespace Junior_Developer
 
             switch (action)
             {
-                case Structs.Action.add:
+                case Structs.UserAction.add:
                     if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text)))
                         MessageBox.Show("Информация успешно добавлена", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при добавлении информации", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
-                case Structs.Action.change:
+                case Structs.UserAction.change:
                     if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text), id))
                         MessageBox.Show("Информация успешно изменена", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при изменении информации", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
-                case Structs.Action.delete:
+                case Structs.UserAction.delete:
                     if((bool)Functions.AccountAction(action, id: id))
                         MessageBox.Show("Информация успешно удалена", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
