@@ -44,13 +44,7 @@ namespace Junior_Developer
         /// <returns></returns>
         public static object AccountAction(Action act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
         {
-            string connection_string = CONNECTION_STRING;
-            if(connection_string == null)
-            {
-                return null;
-            }
-
-            using (var connection = new SqlConnection(connection_string))
+            using (var connection = new SqlConnection(CONNECTION_STRING))
             {
                 connection.Open();
                 var command = new SqlCommand

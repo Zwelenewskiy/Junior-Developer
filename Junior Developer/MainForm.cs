@@ -92,8 +92,6 @@ namespace Junior_Developer
 
         private void BT_add_Click(object sender, EventArgs e)
         {
-            string tag = ((Button)sender).Tag.ToString();//получили тип действия пользователя
-
             using (var accForm = new AccountForm(Functions.Action.change))
             {
                 accForm.ShowDialog();
@@ -133,16 +131,17 @@ namespace Junior_Developer
                                 MessageBox.Show("Ошибка при удалении информации", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }                        
                         break;
-                }
-            }
-            else
-            {
-                using (var accForm = new AccountForm())
-                {
-                    accForm.ShowDialog();
-                }
 
-                LoadGrid();
+                    default:
+                        using (var accForm = new AccountForm(Functions.Action.change))
+                        {
+                            accForm.ShowDialog();
+                        }
+
+                        LoadGrid();
+
+                        break;
+                }
             }
         }
 
