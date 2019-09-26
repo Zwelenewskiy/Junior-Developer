@@ -9,21 +9,6 @@ namespace Junior_Developer
     public class Functions
     {        
         private static readonly string CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Invoice;Integrated Security=True";
-
-        /// <summary>
-        /// Заполняет базу данных тестовыми данными
-        /// </summary>
-        public static void SetUsers()
-        {
-            for (int i = 0; i < 20001; i++)
-            {
-                //AccountAction(UserAction.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
-                /*AccountAction(new AccountActionParams() {
-                    action = UserAction.add,
-                    date = new DateTime(2018, 05, 28, "Фамилия " + , "Имя " + i, "Отчество " + i,)
-                });*/
-            }
-        }
         
         /// <summary>
         /// Обрабатывает действие пользователя

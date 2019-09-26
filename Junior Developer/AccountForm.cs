@@ -29,7 +29,7 @@ namespace Junior_Developer
             if(action == Structs.UserAction.change)
                 BT1.Text = "Изменить";
             else
-                BT1.Text = "Удалить";
+                BT1.Text = "Добавить";
         }
 
         private void textBox4_Enter(object sender, EventArgs e)

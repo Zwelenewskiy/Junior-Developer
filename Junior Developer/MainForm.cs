@@ -139,7 +139,6 @@ namespace Junior_Developer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Functions.SetUsers();
             LoadGrid();
         }
 
