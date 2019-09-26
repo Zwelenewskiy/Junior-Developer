@@ -9,7 +9,7 @@ namespace Junior_Developer
     public class ChangeRecordParams
     {
         public DateTime date { get; set; }
-        public string last_mame { get; set; }
+        public string last_name { get; set; }
         public string first_name { get; set; }
         public string patronymic { get; set; }
         public double sum { get; set; }
