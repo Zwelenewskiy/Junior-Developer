@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Junior_Developer.ParamsClasses
+namespace Junior_Developer
 {
     public class ChangeRecordParams
     {
-        public string date { get; set; }
+        public DateTime date { get; set; }
         public string last_mame { get; set; }
         public string first_name { get; set; }
         public string patronymic { get; set; }

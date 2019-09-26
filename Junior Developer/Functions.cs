@@ -44,10 +44,16 @@ namespace Junior_Developer
                         return true;
 
                     case Structs.UserAction.change:
-                        command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{parameters.date}', LastName = '{parameters.last_name}', FirstName = '{parameters.first_name}'," +
-                            $"Patronymic = '{parameters.patronymic}', Sum = {parameters.sum.ToString().Replace(',', '.')} WHERE ID = {parameters.id}";
+                        Database.ChangeRecord(new ChangeRecordParams()
+                        {
+                            date = parameters.date,
+                            last_mame = parameters.last_name,
+                            first_name = parameters.first_name,
+                            patronymic = parameters.patronymic,
+                            sum = parameters.sum,
+                            id = parameters.id
+                        });
 
-                        command.ExecuteNonQuery();
                         return true;
 
                     case Structs.UserAction.delete:
