@@ -1,5 +1,4 @@
 ﻿using System;
-using Structs;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +8,17 @@ namespace Junior_Developer
     public class Functions
     {        
         private static readonly string CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Invoice;Integrated Security=True";
+
+        /// <summary>
+        /// Заполняет базу данных тестовыми данными
+        /// </summary>
+        public static void SetUsers()
+        {
+            for (int i = 0; i < 20001; i++)
+            {
+                AccountAction(Structs.UserAction.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
+            }
+        }
         
         /// <summary>
         /// Обрабатывает действие пользователя
@@ -21,8 +31,7 @@ namespace Junior_Developer
         /// <param name="sum">Сумма счета</param>
         /// <param name="id">ID записи в БД</param>
         /// <returns></returns>
-        //public static object AccountAction(UserAction act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
-        public static object AccountAction(AccountActionParams account)
+        public static object AccountAction(Structs.UserAction act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
         {
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -32,33 +41,33 @@ namespace Junior_Developer
                     Connection = connection
                 };                
 
-                switch (account.action)
+                switch (act)
                 {
-                    case UserAction.add:
+                    case Structs.UserAction.add:
                         command.CommandText = $"SELECT MAX(ID) FROM Main_table";
                         var new_id = command.ExecuteScalar();
 
                         new_id = Convert.DBNull == new_id ? 0 : Convert.ToInt32(new_id) + 1;//новый ID должен быть на единицу больше текущего в БД
 
-                        command.CommandText = $"INSERT INTO Main_table VALUES({new_id}, '{account.date}', '{account.last_name}', '{account.first_name}', '{account.patronymic}', {account.sum.ToString().Replace(',', '.')})";
+                        command.CommandText = $"INSERT INTO Main_table VALUES({new_id}, '{date}', '{lastName}', '{firstName}', '{patronymic}', {sum.ToString().Replace(',', '.')})";
                         command.ExecuteNonQuery();
 
                         return true;
 
-                    case UserAction.change:
-                        command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{account.date}', LastName = '{account.last_name}', FirstName = '{account.first_name}'," +
-                            $"Patronymic = '{account.patronymic}', Sum = {account.sum.ToString().Replace(',', '.')} WHERE ID = {account.id}";
+                    case Structs.UserAction.change:
+                        command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{date}', LastName = '{lastName}', FirstName = '{firstName}'," +
+                            $"Patronymic = '{patronymic}', Sum = {sum.ToString().Replace(',', '.')} WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case UserAction.delete:
-                        command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {account.id}";
+                    case Structs.UserAction.delete:
+                        command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case UserAction.show:
+                    case Structs.UserAction.show:
 
                         var query_res = new List<object[]>();
 

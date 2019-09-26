@@ -45,6 +45,14 @@ namespace Junior_Developer
         /// </summary>
         private void LoadGrid()
         {
+            var tmp = Functions.AccountAction(UserAction.show);//проверили подключение к БД
+            if (tmp == null)
+            {
+                MessageBox.Show("Ошибка при подключении к базе данных", "Загрузка данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                P_Loading.Hide();
+                return;
+            }
+
             Task.Factory.StartNew(() =>
             {
                 P_Loading.Show();
@@ -55,14 +63,12 @@ namespace Junior_Developer
 
                 foreach (DataGridViewColumn column in DGV_invoice.Columns)
                     new_dgv.Columns.Add((DataGridViewColumn)column.Clone());
-
-                var tmp = (List<object[]>)Functions.AccountAction(new AccountActionParams() {
-                    action = UserAction.show
-                });
+                
+                tmp = (List<object[]>)tmp;
 
                 double sum = 0;
                 DGV_invoice.Rows.Clear();
-                foreach (var t in tmp)
+                foreach (var t in (List<object[]>)tmp)
                 {
                     new_dgv.Rows.Add(t[1], t[2], t[3], t[4], t[5]);
                     new_dgv.Rows[new_dgv.Rows.Count - 2].Tag = t[0];//для каждой строки сохраняем соответствующий ей id из БД
@@ -79,16 +85,35 @@ namespace Junior_Developer
             }, TaskCreationOptions.LongRunning);             
         }
 
-        private void AccountAction(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
+            //Functions.SetUsers();
+            LoadGrid();
+        }
+
+        private void BT_add_Click(object sender, EventArgs e)
+        {
+            using (var accForm = new AccountForm(new AccountFormParams()
+            {
+                action = Structs.UserAction.add
+            }))
+            {
+                accForm.ShowDialog();
+            }
+
+            LoadGrid();
+        }
+
+        private void AccountAction(object sender, EventArgs e)
+        {   
             if (DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Cells[0].Value != null)
             {
                 string tag = ((ToolStripMenuItem)sender).Tag.ToString();//получили тип действия пользователя
-                var act = tag == "change" ? UserAction.change : UserAction.delete;
+                var act = tag ==  "change" ? Structs.UserAction.change : Structs.UserAction.delete;
 
                 switch (act)
                 {
-                    case UserAction.change:
+                    case Structs.UserAction.change:
                         using (var accForm = new AccountForm(new AccountFormParams()
                         {
                             action = act,
@@ -103,27 +128,23 @@ namespace Junior_Developer
                         LoadGrid();
                         break;
 
-                    case UserAction.delete:
+                    case Structs.UserAction.delete:
                         if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
-                            if ((bool)Functions.AccountAction(new AccountActionParams()
-                            {
-                                action = act,
-                                id = Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag
-                            )}))
+                            if ((bool)Functions.AccountAction(act, id: Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag)))
                             {
                                 MessageBox.Show("Информация успешно удалена", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 LoadGrid();
-                            }
+                            }                                
                             else
                                 MessageBox.Show("Ошибка при удалении информации", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        }                        
                         break;
 
                     default:
                         using (var accForm = new AccountForm(new AccountFormParams()
                         {
-                            action = UserAction.change,
+                            action =  Structs.UserAction.change,
 
                         }))
                         {
@@ -136,24 +157,6 @@ namespace Junior_Developer
                 }
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            LoadGrid();
-        }
-
-        private void BT_add_Click(object sender, EventArgs e)
-        {
-            using (var accForm = new AccountForm(new AccountFormParams()
-            {
-                action = UserAction.add
-            }))
-            {
-                accForm.ShowDialog();
-            }
-
-            LoadGrid();
-        }        
 
         private void contextMenuStrip1_Opened(object sender, EventArgs e)
         {
