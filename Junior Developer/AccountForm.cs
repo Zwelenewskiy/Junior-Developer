@@ -7,9 +7,9 @@ namespace Junior_Developer
     public partial class AccountForm : Form
     {
         private int _id;
-        private Functions.Action _action;
+        private Structs.Action _action;
 
-        public AccountForm(Functions.Action action = Functions.Action.add, int id = -1, DataGridViewRow user_info = null)
+        public AccountForm(Structs.Action action = Structs.Action.add, int id = -1, DataGridViewRow user_info = null)
         {
             InitializeComponent();
 
@@ -26,7 +26,7 @@ namespace Junior_Developer
                 TB_Sum.Text = user_info.Cells[4].Value.ToString();
             }
 
-            if(action == Functions.Action.change)
+            if(action == Structs.Action.change)
                 BT1.Text = "Изменить";
             else
                 BT1.Text = "Удалить";
@@ -59,21 +59,21 @@ namespace Junior_Developer
 
             switch (_action)
             {
-                case Functions.Action.add:
+                case Structs.Action.add:
                     if ((bool)Functions.AccountAction(_action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text)))
                         MessageBox.Show("Информация успешно добавлена", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при добавлении информации", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
-                case Functions.Action.change:
+                case Structs.Action.change:
                     if ((bool)Functions.AccountAction(_action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text), _id))
                         MessageBox.Show("Информация успешно изменена", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при изменении информации", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
-                case Functions.Action.delete:
+                case Structs.Action.delete:
                     if((bool)Functions.AccountAction(_action, id: _id))
                         MessageBox.Show("Информация успешно удалена", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else

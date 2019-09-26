@@ -8,6 +8,16 @@ namespace Junior_Developer
 {
     public class Structs
     {
+        /// <summary>
+        /// Тип действия пользователя
+        /// </summary>
+        public enum Action
+        {
+            add,
+            change,
+            delete,
+            show
+        }
 
     }
 }

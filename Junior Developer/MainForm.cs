@@ -44,7 +44,7 @@ namespace Junior_Developer
         /// </summary>
         private void LoadGrid()
         {
-            var tmp = Functions.AccountAction(Functions.Action.show);//проверили подключение к БД
+            var tmp = Functions.AccountAction(Structs.Action.show);//проверили подключение к БД
             if (tmp == null)
             {
                 MessageBox.Show("Ошибка при подключении к базе данных", "Загрузка данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -92,7 +92,7 @@ namespace Junior_Developer
 
         private void BT_add_Click(object sender, EventArgs e)
         {
-            using (var accForm = new AccountForm(Functions.Action.change))
+            using (var accForm = new AccountForm(Structs.Action.change))
             {
                 accForm.ShowDialog();
             }
@@ -105,11 +105,11 @@ namespace Junior_Developer
             if (DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Cells[0].Value != null)
             {
                 string tag = ((ToolStripMenuItem)sender).Tag.ToString();//получили тип действия пользователя
-                var act = tag ==  "change" ? Functions.Action.change : Functions.Action.delete;
+                var act = tag ==  "change" ? Structs.Action.change : Structs.Action.delete;
 
                 switch (act)
                 {
-                    case Functions.Action.change:
+                    case Structs.Action.change:
                         using (var accForm = new AccountForm(act, Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag),
                         DGV_invoice.Rows[DGV_invoice.CurrentRow.Index]))
                         {
@@ -119,7 +119,7 @@ namespace Junior_Developer
                         LoadGrid();
                         break;
 
-                    case Functions.Action.delete:
+                    case Structs.Action.delete:
                         if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
                             if ((bool)Functions.AccountAction(act, id: Convert.ToInt32(DGV_invoice.Rows[DGV_invoice.CurrentRow.Index].Tag)))
@@ -133,7 +133,7 @@ namespace Junior_Developer
                         break;
 
                     default:
-                        using (var accForm = new AccountForm(Functions.Action.change))
+                        using (var accForm = new AccountForm(Structs.Action.change))
                         {
                             accForm.ShowDialog();
                         }

@@ -6,18 +6,7 @@ using System.IO;
 namespace Junior_Developer
 {
     public class Functions
-    {
-        /// <summary>
-        /// Тип действия пользователя
-        /// </summary>
-        public enum Action
-        {
-            add,
-            change,
-            delete,
-            show
-        }
-
+    {        
         private static readonly string CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Invoice;Integrated Security=True";
 
         /// <summary>
@@ -27,7 +16,7 @@ namespace Junior_Developer
         {
             for (int i = 0; i < 20001; i++)
             {
-                AccountAction(Action.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
+                AccountAction(Structs.Action.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
             }
         }
         
@@ -42,7 +31,7 @@ namespace Junior_Developer
         /// <param name="sum">Сумма счета</param>
         /// <param name="id">ID записи в БД</param>
         /// <returns></returns>
-        public static object AccountAction(Action act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
+        public static object AccountAction(Structs.Action act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
         {
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -54,7 +43,7 @@ namespace Junior_Developer
 
                 switch (act)
                 {
-                    case Action.add:
+                    case Structs.Action.add:
                         command.CommandText = $"SELECT MAX(ID) FROM Main_table";
                         var new_id = command.ExecuteScalar();
 
@@ -65,20 +54,20 @@ namespace Junior_Developer
 
                         return true;
 
-                    case Action.change:
+                    case Structs.Action.change:
                         command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{date}', LastName = '{lastName}', FirstName = '{firstName}'," +
                             $"Patronymic = '{patronymic}', Sum = {sum.ToString().Replace(',', '.')} WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case Action.delete:
+                    case Structs.Action.delete:
                         command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
-                    case Action.show:
+                    case Structs.Action.show:
 
                         var query_res = new List<object[]>();
 
