@@ -51,7 +51,7 @@ namespace Junior_Developer
         {
             if(string.IsNullOrEmpty(TB_LastName.Text) || string.IsNullOrEmpty(TB_FirstName.Text) ||
                 string.IsNullOrEmpty(TB_Patronymic.Text) || string.IsNullOrEmpty(TB_Date.Text) ||
-                string.IsNullOrEmpty(TB_Sum.Text) || !Regex.IsMatch(TB_Sum.Text, @"^[0-9]*[.,]?[0-9]+$", RegexOptions.IgnoreCase))
+                string.IsNullOrEmpty(TB_Sum.Text) || !Functions.ExpressionMatches(TB_Sum.Text, @"^[0-9]*[.,]?[0-9]+$"))
             {
                 MessageBox.Show("Не все поля заполнены либо заполнены некорректно", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

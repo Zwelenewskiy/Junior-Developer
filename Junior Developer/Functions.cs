@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Junior_Developer
 {
@@ -72,6 +71,17 @@ namespace Junior_Developer
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Проверяет строку на соответствие шаблону
+        /// </summary>
+        /// <param name="expression">Проверяемая строка</param>
+        /// <param name="pattern">Шаблон</param>
+        /// <returns></returns>
+        public static bool ExpressionMatches(string expression, string pattern)
+        {
+            return Regex.IsMatch(expression, pattern, RegexOptions.IgnoreCase);
         }
     }
 }
