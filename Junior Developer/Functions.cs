@@ -58,7 +58,9 @@ namespace Junior_Developer
                         return true;
 
                     case Structs.UserAction.delete:
-                        Database.DeleteRecord(parameters.id);
+                        Database.DeleteRecord(new ChangeRecordParams() {
+                            id = parameters.id
+                        });
 
                         return true;
 

@@ -42,12 +42,12 @@ namespace Junior_Developer
         /// <summary>
         /// Удаляет из БД указанную записи
         /// </summary>
-        public static int DeleteRecord(int id)
+        public static int DeleteRecord(ChangeRecordParams parameters)
         {
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
                 connection.Open();
-                return new SqlCommand($"DELETE FROM Invoice.dbo.Main_table WHERE ID = {id}", connection).ExecuteNonQuery();
+                return new SqlCommand($"DELETE FROM Invoice.dbo.Main_table WHERE ID = {parameters.id}", connection).ExecuteNonQuery();
             }
         }
 
