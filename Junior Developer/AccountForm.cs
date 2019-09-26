@@ -29,7 +29,7 @@ namespace Junior_Developer
             if(action == Structs.UserAction.change)
                 BT1.Text = "Изменить";
             else
-                BT1.Text = "Удалить";
+                BT1.Text = "Добавить";
         }
 
         private void textBox4_Enter(object sender, EventArgs e)
@@ -60,21 +60,41 @@ namespace Junior_Developer
             switch (action)
             {
                 case Structs.UserAction.add:
-                    if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text)))
+                    if ((bool)Functions.AccountAction(new AccountActionParams() {
+                        action = action,
+                        date = Calendar.SelectionStart,
+                        last_name = TB_LastName.Text,
+                        first_name = TB_FirstName.Text,
+                        patronymic = TB_Patronymic.Text,
+                        sum = Convert.ToDouble(TB_Sum.Text)
+                    }))
                         MessageBox.Show("Информация успешно добавлена", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при добавлении информации", "Добавление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
                 case Structs.UserAction.change:
-                    if ((bool)Functions.AccountAction(action, TB_Date.Text, TB_LastName.Text, TB_FirstName.Text, TB_Patronymic.Text, Convert.ToDouble(TB_Sum.Text), id))
+                    if ((bool)Functions.AccountAction(new AccountActionParams()
+                    {
+                        action = action,
+                        date = Calendar.SelectionStart,
+                        last_name = TB_LastName.Text,
+                        first_name = TB_FirstName.Text,
+                        patronymic = TB_Patronymic.Text,
+                        sum = Convert.ToDouble(TB_Sum.Text),
+                        id = id
+                    }))
                         MessageBox.Show("Информация успешно изменена", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при изменении информации", "Изменение записи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
 
                 case Structs.UserAction.delete:
-                    if((bool)Functions.AccountAction(action, id: id))
+                    if ((bool)Functions.AccountAction(new AccountActionParams()
+                    {
+                        action = action,
+                        id = id
+                    }))
                         MessageBox.Show("Информация успешно удалена", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                         MessageBox.Show("Ошибка при удалении информации", "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Error);

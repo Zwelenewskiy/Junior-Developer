@@ -8,18 +8,7 @@ namespace Junior_Developer
     public class Functions
     {        
         private static readonly string CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Invoice;Integrated Security=True";
-
-        /// <summary>
-        /// Заполняет базу данных тестовыми данными
-        /// </summary>
-        public static void SetUsers()
-        {
-            for (int i = 0; i < 20001; i++)
-            {
-                AccountAction(Structs.UserAction.add, "2018-05-28", "Фамилия " + i, "Имя " + i, "Отчество " + i, new Random().Next(0, 99999));
-            }
-        }
-        
+                
         /// <summary>
         /// Обрабатывает действие пользователя
         /// </summary>
@@ -31,7 +20,7 @@ namespace Junior_Developer
         /// <param name="sum">Сумма счета</param>
         /// <param name="id">ID записи в БД</param>
         /// <returns></returns>
-        public static object AccountAction(Structs.UserAction act, string date = "", string lastName = "", string firstName = "", string patronymic = "", double sum = -1, int id = -1)
+        public static object AccountAction(AccountActionParams parameters)
         {
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -41,7 +30,7 @@ namespace Junior_Developer
                     Connection = connection
                 };                
 
-                switch (act)
+                switch (parameters.action)
                 {
                     case Structs.UserAction.add:
                         command.CommandText = $"SELECT MAX(ID) FROM Main_table";
@@ -49,20 +38,20 @@ namespace Junior_Developer
 
                         new_id = Convert.DBNull == new_id ? 0 : Convert.ToInt32(new_id) + 1;//новый ID должен быть на единицу больше текущего в БД
 
-                        command.CommandText = $"INSERT INTO Main_table VALUES({new_id}, '{date}', '{lastName}', '{firstName}', '{patronymic}', {sum.ToString().Replace(',', '.')})";
+                        command.CommandText = $"INSERT INTO Main_table VALUES({new_id}, '{parameters.date}', '{parameters.last_name}', '{parameters.first_name}', '{parameters.patronymic}', {parameters.sum.ToString().Replace(',', '.')})";
                         command.ExecuteNonQuery();
 
                         return true;
 
                     case Structs.UserAction.change:
-                        command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{date}', LastName = '{lastName}', FirstName = '{firstName}'," +
-                            $"Patronymic = '{patronymic}', Sum = {sum.ToString().Replace(',', '.')} WHERE ID = {id}";
+                        command.CommandText = $"UPDATE Invoice.dbo.Main_table SET Date = '{parameters.date}', LastName = '{parameters.last_name}', FirstName = '{parameters.first_name}'," +
+                            $"Patronymic = '{parameters.patronymic}', Sum = {parameters.sum.ToString().Replace(',', '.')} WHERE ID = {parameters.id}";
 
                         command.ExecuteNonQuery();
                         return true;
 
                     case Structs.UserAction.delete:
-                        command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {id}";
+                        command.CommandText = $"DELETE FROM Invoice.dbo.Main_table WHERE ID = {parameters.id}";
 
                         command.ExecuteNonQuery();
                         return true;
