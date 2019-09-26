@@ -9,7 +9,8 @@ namespace Junior_Developer
         private int _id;
         private Structs.Action _action;
 
-        public AccountForm(Structs.Action action = Structs.Action.add, int id = -1, DataGridViewRow user_info = null)
+        //public AccountForm(Structs.Action action = Structs.Action.add, int id = -1, DataGridViewRow user_info = null)
+        public AccountForm(AccountFormParams params)
         {
             InitializeComponent();
 
